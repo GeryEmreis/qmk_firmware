@@ -90,11 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [3] = LAYOUT_preonic_1x2uC(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,      KC_F11,    KC_F12,  \
-        KC_PSCR, XXXXXXX, KC_UP,   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,   XXXXXXX,
-        _______, KC_LEFT, KC_DOWN, KC_RIGHT, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,    KC_RIGHT,    XXXXXXX,   XXXXXXX,
-        _______, RGB_TOG, RGB_M_P, RGB_HUI,  RGB_HUD, RGB_SAI, RGB_SAD, XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,   _______,
-        RESET,   _______, _______, XXXXXXX,  RGB_VAD,      _______,     RGB_VAI, KC__MUTE, KC__VOLDOWN, KC__VOLUP, XXXXXXX
+        KC_F1,   KC_F2,      KC_F3,      KC_F4,       KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,      KC_F11,    KC_F12,  \
+        KC_PSCR, KC_MS_BTN1, KC_MS_UP,   KC_MS_BTN2,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,   XXXXXXX,
+        _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,    XXXXXXX,   XXXXXXX,
+        _______, XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,   _______,
+        RESET,   _______,    _______,    XXXXXXX,     XXXXXXX,      _______,     XXXXXXX, KC__MUTE, KC__VOLDOWN, KC__VOLUP, XXXXXXX
     ),
 
     [4] = LAYOUT_preonic_1x2uC(
