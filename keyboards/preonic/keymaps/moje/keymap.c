@@ -45,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 */
     [0] = LAYOUT_preonic_1x2uC(
     KC_ESC,             KC_1,    KC_2,    KC_3,    KC_4,  KC_5,   KC_6,   KC_7,  KC_8,    KC_9,   KC_0,    KC_BSPC, \
-		XXXXXXX,            KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,   KC_P,    KC_BSPC,
+		KC_AUDIO_MUTE,      KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,   KC_P,    KC_BSPC,
 		KC_TAB,             KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,   KC_SCLN, TD(TD_QUOT_F12),
 	  TD(TD_LSHIFT_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_SFTENT,
 		KC_LCTL,            KC_LGUI, XXXXXXX, KC_LALT, MO(1),    SPACE_FN,    MO(2), KC_LEFT, KC_UP,  KC_DOWN, KC_RGHT
@@ -192,31 +192,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // uint8_t muse_offset = 70;
 // uint16_t muse_tempo = 50;
 
-//void encoder_update_user(uint8_t index, bool clockwise) {
- // if (muse_mode) {
- //   if (IS_LAYER_ON(_RAISE)) {
- //     if (clockwise) {
- //       muse_offset++;
- //     } else {
- //       muse_offset--;
- //     }
- //   } else {
- //     if (clockwise) {
- //       muse_tempo+=1;
- //     } else {
- //       muse_tempo-=1;
- //     }
- //   }
- // } else {
- //   if (clockwise) {
- //     register_code(KC_PGDN);
- //     unregister_code(KC_PGDN);
- //   } else {
- //     register_code(KC_PGUP);
- //     unregister_code(KC_PGUP);
- //   }
- // }
-//}
+void encoder_update_user(uint8_t index, bool clockwise) {
+    if (clockwise) {
+        tap_code(KC__VOLUP);
+    } else {
+      tap_code(KC__VOLDOWN);
+    }
+}
 
 // void dip_switch_update_user(uint8_t index, bool active) {
    // switch (index) {

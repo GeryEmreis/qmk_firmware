@@ -27,7 +27,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 #SLEEP_LED_ENABLE = yes
 
 # SERIAL_LINK_ENABLE = yes
-ENCODER_ENABLE = no
+ENCODER_ENABLE = yes
 DIP_SWITCH_ENABLE = no
 
 LAYOUTS = ortho_5x12
