@@ -111,11 +111,6 @@ static bool is_layer_down_pressed = false;
 static bool layer4_on = false;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // if (keycode == KC_LSFT || keycode == KC_SFTENT) {
-  //   is_shift_pressed = record->event.pressed;
-  //   return true;
-  // }
-
   if (keycode == MO(1))
   {is_layer_down_pressed = record->event.pressed;}
 
@@ -136,67 +131,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     layer_move(0);
   }
 
-  //if (false && record->event.pressed)
-  //{
-  //  if (keyboard_report->mods & MOD_BIT(KC_LGUI))
-  //    return true;
-
-  //  switch (keycode)
-  //  {
-  //    case KC_0:
-  //    case KC_1:
-  //    case KC_2:
-  //    case KC_3:
-  //    case KC_4:
-  //    case KC_5:
-  //    case KC_6:
-  //    case KC_7:
-  //    case KC_8:
-  //    case KC_9:
-  //      if (!is_shift_pressed)
-  //      {
-  //        uint8_t shift_kc = KC_LSFT;
-  //        if (keyboard_report->mods & MOD_BIT(KC_RSFT)) {
-  //          shift_kc = KC_RSFT;
-  //        }
-
-  //        register_code (shift_kc);
-  //        register_code (keycode);
-  //        unregister_code (keycode);
-  //        unregister_code (shift_kc);
-  //        return false;
-  //    }
-  //    else
-  //    {
-  //        uint8_t shift_kc = KC_LSFT;
-  //        if (keyboard_report->mods & MOD_BIT(KC_RSFT)) {
-  //          shift_kc = KC_RSFT;
-  //        }
-
-  //        unregister_code (shift_kc);
-  //        register_code (keycode);
-  //        unregister_code (keycode);
-  //        register_code (shift_kc);
-  //        return false;
-  //    }
-  //    break;
-  //  }
-  //}
-
 	return true;
 }
 
-// bool muse_mode = false;
-// uint8_t last_muse_note = 0;
-// uint16_t muse_counter = 0;
-// uint8_t muse_offset = 70;
-// uint16_t muse_tempo = 50;
-
 void encoder_update_user(uint8_t index, bool clockwise) {
-    if (clockwise) {
-        tap_code(KC__VOLUP);
-    } else {
-      tap_code(KC__VOLDOWN);
+    if (IS_LAYER_ON(1))
+    {
+         if (clockwise) {
+            tap_code(KC_MS_WH_DOWN);
+        } else {
+            tap_code(KC_MS_WH_UP);
+        }
+    }
+    else if (IS_LAYER_ON(2))
+    {
+         if (clockwise) {
+            tap_code(KC_MS_UP);
+        } else {
+            tap_code(KC_MS_DOWN);
+        }
+    }else {
+        if (clockwise) {
+            tap_code(KC__VOLUP);
+        } else {
+            tap_code(KC__VOLDOWN);
+        }
     }
 }
 
