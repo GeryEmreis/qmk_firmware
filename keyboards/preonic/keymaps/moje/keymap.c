@@ -18,7 +18,6 @@
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define SPACE_FN LT(3, KC_SPC)
 
 enum {
   TD_LSHIFT_CAPS = 0,
@@ -30,78 +29,89 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_QUOT_F12]  = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_F12)
 };
 
+enum Layers
+{
+BASE,
+UP,
+DOWN,
+SPACE,
+UP_DOWN
+};
+
+#define SPACE_FN LT(SPACE, KC_SPC)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	/* Layer 0
-	 * ,-----------------------------------------------------------------------------------.
-	 * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
-	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-	 * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
-	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-	 * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  -   |Enter |
-	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-	 * | Ctrl |  GUI | Caps |  Alt |Layer1|    Space    |Layer2| Left |  Up  | Down |Right |
-	 * `-----------------------------------------------------------------------------------'
-	 */
-    [0] = LAYOUT_preonic_1x2uC(
-    KC_ESC,             KC_1,    KC_2,    KC_3,    KC_4,  KC_5,   KC_6,   KC_7,  KC_8,    KC_9,   KC_0,    KC_BSPC, \
-		KC_MEDIA_PLAY_PAUSE,      KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,   KC_P,    KC_BSPC,
-		KC_TAB,             KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,   KC_SCLN, TD(TD_QUOT_F12),
-	  TD(TD_LSHIFT_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_SFTENT,
-		KC_LCTL,            KC_LGUI, XXXXXXX, KC_LALT, MO(1),    SPACE_FN,    MO(2), KC_LEFT, KC_UP,  KC_DOWN, KC_RGHT
+    /* Layer 0
+     * ,-----------------------------------------------------------------------------------.
+     * | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+     * |------+------+------+------+------+-------------+------+------+------+------+------|
+     * | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
+     * |------+------+------+------+------+------|------+------+------+------+------+------|
+     * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  -   |Enter |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | Ctrl |  GUI | Caps |  Alt |Layer1|    Space    |Layer2| Left |  Up  | Down |Right |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [BASE] = LAYOUT_preonic_1x2uC(
+        KC_ESC,              KC_1,    KC_2,    KC_3,    KC_4,  KC_5,   KC_6,   KC_7,  KC_8,    KC_9,   KC_0,    KC_BSPC, \
+        KC_MEDIA_PLAY_PAUSE, KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,   KC_U,  KC_I,    KC_O,   KC_P,    KC_BSPC,
+        KC_TAB,              KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,   KC_SCLN, TD(TD_QUOT_F12),
+        TD(TD_LSHIFT_CAPS),  KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT, KC_SLSH, KC_SFTENT,
+        KC_LCTL,             KC_LGUI, XXXXXXX, KC_LALT, MO(UP),    SPACE_FN,    MO(DOWN), KC_LEFT, KC_UP,  KC_DOWN, KC_RGHT
     ),
 
-	/* Layer 1
-	 * ,-----------------------------------------------------------------------------------.
-	 * |   ;  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  Ins |
-	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-	 * |      |      |      |      |      |      |      |      |      |  F11 |  F12 |      |
-	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-	 * |      |      |      |      |      |      |      |      |      |      |      |      |
-	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-	 * | Reset|      |      |      |      |             |      | Home | PgUp | PgUp |  End |
-	 * `-----------------------------------------------------------------------------------'
-	 */
-	[1] = LAYOUT_preonic_1x2uC(
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_INS, \
-    _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-		_______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_F11,  KC_F12,  XXXXXXX, _______,
-		_______, _______, _______, _______, _______,     _______,      _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END
-	),
+    /* Layer 1
+     * ,-----------------------------------------------------------------------------------.
+     * |   ;  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  Ins |
+     * |------+------+------+------+------+-------------+------+------+------+------+------|
+     * |      |      |      |      |      |      |      |      |      |  F11 |  F12 |      |
+     * |------+------+------+------+------+------|------+------+------+------+------+------|
+     * |      |      |      |      |      |      |      |      |      |      |      |      |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * | Reset|      |      |      |      |             |      | Home | PgUp | PgUp |  End |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [UP] = LAYOUT_preonic_1x2uC(
+        KC_TILD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS, \
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+        _______, _______, _______, _______, _______,     _______,      _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END
+    ),
 
-	/* Layer 2
-	 * ,-----------------------------------------------------------------------------------.
-	 * |   ;  |   +  |   ě  |   š  |   č  |   ř  |   ž  |   ý  |   á  |   í  |   é  | del  |
-	 * |------+------+------+------+------+-------------+------+------+------+------+------|
-	 * |      |   ~  |   /  |   [  |   (  |   {  |   }  |   )  |   ]  |   \  |   ú  |   =  |
-	 * |------+------+------+------+------+------|------+------+------+------+------+------|
-	 * |      |      |  #   |   &  |   @  |   <  |   >  |      |      |      |      |      |
-	 * |------+------+------+------+------+------+------+------+------+------+------+------|
-	 * |      |      |      |      |      |             |      | Home | PgUp | PgUp | End  |
-	 * `-----------------------------------------------------------------------------------'
-	 */
-	[2] = LAYOUT_preonic_1x2uC(
+    /* Layer 2
+     * ,-----------------------------------------------------------------------------------.
+     * |   ;  |   +  |   ě  |   š  |   č  |   ř  |   ž  |   ý  |   á  |   í  |   é  | del  |
+     * |------+------+------+------+------+-------------+------+------+------+------+------|
+     * |      |   ~  |   /  |   [  |   (  |   {  |   }  |   )  |   ]  |   \  |   ú  |   =  |
+     * |------+------+------+------+------+------|------+------+------+------+------+------|
+     * |      |      |  #   |   &  |   @  |   <  |   >  |      |      |      |      |      |
+     * |------+------+------+------+------+------+------+------+------+------+------+------|
+     * |      |      |      |      |      |             |      | Home | PgUp | PgUp | End  |
+     * `-----------------------------------------------------------------------------------'
+     */
+    [DOWN] = LAYOUT_preonic_1x2uC(
         KC_GRV,  RALT(KC_1), RALT(KC_2), RALT(KC_3), RALT(KC_4), RALT(KC_5), RALT(KC_6), RALT(KC_7), RALT(KC_8),    RALT(KC_9),    RALT(KC_0), KC_DEL,
-		_______, RALT(KC_1), RALT(KC_2), RALT(KC_3), RALT(KC_4), RALT(KC_5), RALT(KC_6), RALT(KC_7), RALT(KC_8),    RALT(KC_9),    RALT(KC_0), KC_DEL,
-		_______, RALT(KC_A), S(KC_LBRC), RALT(KC_F), XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RALT(KC_RBRC), RALT(KC_BSLS), KC_LBRC,    KC_MINUS,
-		_______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RALT(KC_B), RALT(KC_N), XXXXXXX,    RALT(KC_COMM), RALT(KC_DOT),  XXXXXXX,    _______,
-		_______, _______,    _______,    _______,    _______,           _______,         _______,    KC_HOME,       KC_PGUP,       KC_PGDN,    KC_END
+        _______, RALT(KC_1), RALT(KC_2), RALT(KC_3), RALT(KC_4), RALT(KC_5), RALT(KC_6), RALT(KC_7), RALT(KC_8),    RALT(KC_9),    RALT(KC_0), KC_DEL,
+        _______, RALT(KC_A), S(KC_LBRC), RALT(KC_F), XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RALT(KC_RBRC), RALT(KC_BSLS), KC_LBRC,    KC_MINUS,
+        _______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    RALT(KC_B), RALT(KC_N), XXXXXXX,    RALT(KC_COMM), RALT(KC_DOT),  XXXXXXX,    _______,
+        _______, _______,    _______,    _______,    _______,           _______,         _______,    KC_HOME,       KC_PGUP,       KC_PGDN,    KC_END
     ),
 
-    [3] = LAYOUT_preonic_1x2uC(
-        KC_F1,   KC_F2,      KC_F3,      KC_F4,       KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,    KC_F10,      KC_F11,    KC_F12,  \
+    [SPACE] = LAYOUT_preonic_1x2uC(
+        XXXXXXX, XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,   XXXXXXX, \
         KC_PSCR, KC_MS_BTN1, KC_MS_UP,   KC_MS_BTN2,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,   XXXXXXX,
-        _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,    XXXXXXX,   XXXXXXX,
+        _______, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,   XXXXXXX,
         _______, XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,     XXXXXXX,   _______,
         RESET,   _______,    _______,    XXXXXXX,     XXXXXXX,      _______,     XXXXXXX, KC__MUTE, KC__VOLDOWN, KC__VOLUP, XXXXXXX
     ),
 
-    [4] = LAYOUT_preonic_1x2uC(
-        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_F6,  KC_F7,  KC_F8, KC_F9,   KC_F10,  KC_F11,  S(KC_EQUAL),  \
-        KC_PSCR, KC_1,    KC_2,    KC_3,    KC_4,  KC_5,   KC_6,   KC_7,  KC_8,    KC_9,    KC_0,    S(KC_EQUAL),
-        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,   KC_H,   KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,   KC_N,   KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
+    [UP_DOWN] = LAYOUT_preonic_1x2uC(
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, S(KC_EQUAL),  \
+        KC_PSCR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_SFTENT,
         KC_LCTL, KC_LGUI, KC_CAPS, KC_LALT, _______,      _______,     _______, _______, _______, _______, _______
     )
 };
@@ -122,16 +132,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!layer4_on)
     {
       layer4_on = true;
-      layer_move(4);
+      layer_move(UP_DOWN);
     }
   }
   else if (layer4_on)
   {
     layer4_on = false;
-    layer_move(0);
+    layer_move(BASE);
   }
 
-	return true;
+    return true;
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {
