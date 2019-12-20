@@ -15,6 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
+#include <wait.h>
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -165,6 +166,28 @@ void encoder_update_user(uint8_t index, bool clockwise) {
             tap_code(KC__VOLDOWN);
         }
     }
+}
+
+float tone_caps_on[][2]    = SONG(CAPS_LOCK_ON_SOUND);
+float tone_caps_off[][2]   = SONG(CAPS_LOCK_OFF_SOUND);
+
+void led_set_user(uint8_t usb_led)
+{
+    static uint8_t old_usb_led = 0;
+
+     wait_ms(10);
+    //_delay_ms(10); // gets rid of tick
+
+    if ((usb_led & (1<<USB_LED_CAPS_LOCK)) && !(old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+    {
+        PLAY_SONG(tone_caps_on);
+    }
+    else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && (old_usb_led & (1<<USB_LED_CAPS_LOCK)))
+    {
+        PLAY_SONG(tone_caps_off);
+    }
+
+    old_usb_led = usb_led;
 }
 
 // void dip_switch_update_user(uint8_t index, bool active) {
