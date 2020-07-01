@@ -114,9 +114,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (IS_LAYER_ON(1))
     {
          if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
-        } else {
             tap_code(KC_MS_WH_UP);
+        } else {
+            tap_code(KC_MS_WH_DOWN);
         }
     }
     else if (IS_LAYER_ON(2))
